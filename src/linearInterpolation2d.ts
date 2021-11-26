@@ -32,9 +32,9 @@ function animate(){
     for (let i = 0; i < coords2dBuffer.buffer.length; i++) {
         const coords2d: Coords2d = coords2dBuffer.buffer[i];
         ctx?.beginPath();
+        ctx?.arc(coords2d.x, coords2d.y, 5, 0, Math.PI * 2); 
         // @ts-ignore
         ctx.fillStyle = "green";
-        ctx?.arc(coords2d.x, coords2d.y, 5, 0, Math.PI * 2); 
         ctx?.fill();
         ctx?.stroke();
     }
@@ -45,9 +45,9 @@ function animate(){
         const coords2dB = coords2dBuffer.buffer[1];
         const coordsInterpolated = coords2dA.getInterpolatedCoords2d(coords2dB, currentInterpolateTravelAsFraction);
         ctx?.beginPath();
+        ctx?.arc(coordsInterpolated.x, coordsInterpolated.y, 5, 0, Math.PI * 2); 
         // @ts-ignore
         ctx.fillStyle = "lime";
-        ctx?.arc(coordsInterpolated.x, coordsInterpolated.y, 5, 0, Math.PI * 2); 
         ctx?.fill();
         ctx?.stroke();
     }else{
