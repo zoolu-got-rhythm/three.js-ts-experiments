@@ -5,8 +5,8 @@ import { Coords3d } from './Coords3d';
 
 let camera, scene, renderer;
 let geometry, material, movingMesh;
-const width = 350;
-const height = 350;
+const width = 500;
+const height = 500;
 
 
 const xySize = 1.5;
