@@ -1,8 +1,8 @@
 import { Coords2d } from "./Coord2d";
 import { BufferGeneric } from "./BufferGeneric";
 
-const height = window.innerHeight; 
-const width = window.innerWidth;
+const height = 350; 
+const width = 350;
 
 const c = document.createElement("canvas");
 c.className = "canvas";
