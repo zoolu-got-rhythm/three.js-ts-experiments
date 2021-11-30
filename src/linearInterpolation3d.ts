@@ -5,13 +5,14 @@ import { Coords3d } from './Coords3d';
 
 let camera, scene, renderer;
 let geometry, material, movingMesh;
-
+const width = 350;
+const height = 350;
 
 
 const xySize = 1.5;
 const zDepthSize = 8;
 
-const bufferSize = 6;
+const bufferSize = 2;
 const coords3dBuffer: BufferGeneric<Coords3d> = new BufferGeneric<Coords3d>(bufferSize);
 
 
@@ -22,7 +23,7 @@ const backgroundMeshes = [];
 
 export function init() {
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+	camera = new THREE.PerspectiveCamera( 70, width / height, 0.01, 10 );
 	camera.position.z = 5;
 
 	scene = new THREE.Scene();
@@ -33,8 +34,10 @@ export function init() {
 	movingMesh = new THREE.Mesh( geometry, material);
 	scene.add( movingMesh );
 
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer = new THREE.WebGLRenderer( { antialias: true,  } );
+	renderer.setSize( width, height, false);
+	// renderer.domElement.style.width = "100%";
+	renderer.domElement.className = "canvas3d";
 
 
 	for (let i = 0; i < bufferSize; i++) {
@@ -46,8 +49,6 @@ export function init() {
 		mesh.position.x = coOrds3d.x;
 		mesh.position.y = coOrds3d.y;
 		mesh.position.z = coOrds3d.z;
-
-
 		// @ts-ignore
 		backgroundMeshes.push(mesh);
 
