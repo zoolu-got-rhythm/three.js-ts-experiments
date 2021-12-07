@@ -17,9 +17,9 @@ let lines: any = [];
 for(let i = 0; i < 20; i++){
 	const points = [];
 	// @ts-ignore
-	points.push( new THREE.Vector3( - 2, -1.9 + i * 0.2, 1) );
+	points.push( new THREE.Vector3( - 2, -1.9 + i * 0.2, -0.1) );
 	// @ts-ignore
-	points.push( new THREE.Vector3( 2, - 1.9 + i * 0.2, 1 ) );
+	points.push( new THREE.Vector3( 2, - 1.9 + i * 0.2, -0.1 ) );
 	const materialLine = new THREE.LineBasicMaterial( { color: "green"} );
 	const geometryLine = new THREE.BufferGeometry().setFromPoints( points );
 	const line = new THREE.Line( geometryLine, materialLine );
@@ -29,9 +29,9 @@ for(let i = 0; i < 20; i++){
 for(let i = 0; i < 20; i++){
 	const points = [];
 	// @ts-ignore
-	points.push( new THREE.Vector3( -1.9 + i * 0.2, -2, 1) );
+	points.push( new THREE.Vector3( -1.9 + i * 0.2, -2, -0.1) );
 	// @ts-ignore
-	points.push( new THREE.Vector3( - 1.9 + i * 0.2, 2, 1) );
+	points.push( new THREE.Vector3( - 1.9 + i * 0.2, 2, -0.1) );
 	const materialLine = new THREE.LineBasicMaterial( { color: "green"} );
 	const geometryLine = new THREE.BufferGeometry().setFromPoints( points );
 	const line = new THREE.Line( geometryLine, materialLine );
@@ -62,20 +62,7 @@ export function init() {
 		scene.add(line);
 	});
 
-	const light = new THREE.PointLight( 0xffffff, 1, 100 );
-	light.position.set( 0, 10, 4 );
-	light.castShadow = true; // default false
-	scene.add( light );
-
 	renderer = new THREE.WebGLRenderer( { antialias: true,  } );
-	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
-
-	const planeGeometry = new THREE.PlaneGeometry( 2, 22, 2, 2 );
-	const planeMaterial = new THREE.MeshStandardMaterial( { color: 0xfff } )
-	const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	plane.receiveShadow = true;
-	scene.add( plane );
 
 	renderer.setSize( width, height, false);
 	// renderer.domElement.style.width = "100%";
