@@ -15,4 +15,8 @@ export class BufferGeneric<Type>{
         }
     }
 
+    get(): Type | undefined{
+        return this.buffer.shift();    
+    }
+
 }
