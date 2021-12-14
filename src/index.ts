@@ -15,7 +15,7 @@ class MatrixChar{
 		this.char = char;
 		const geometry = new THREE.PlaneGeometry( 1, 1 );
 		const material = new THREE.MeshBasicMaterial( 
-			{color: "white", side: THREE.DoubleSide, transparent: true} 
+			{color: "lime", side: THREE.DoubleSide, transparent: true} 
 		);
 		this.plane = new THREE.Mesh( geometry, material );
 		this.plane.position.copy(position);
@@ -29,7 +29,6 @@ class MatrixChar{
 		if(!(time - this.timeElapsedSinceLastUpdate >= this.updateSpeed))
 			return;
 		this.plane.material.opacity -= 0.05;
-
 		this.updateTimeElapsedSinceLastUpdate(time);
 	}
 
@@ -45,7 +44,7 @@ class MatrixCharRain{
 	}
 
 	update(time:number){
-		
+
 	}
 }
 
