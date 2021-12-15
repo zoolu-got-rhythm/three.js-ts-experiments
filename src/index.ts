@@ -1,10 +1,7 @@
 import * as THREE from 'three';
 import { Plane } from 'three';
+import { BufferGeneric } from './BufferGeneric';
 
-let camera, scene, renderer;
-let geometry, material, mesh;
-
-let plane: MatrixChar;
 class MatrixChar{
 	updateSpeed: number = 100; // update speed in ms
 	timeElapsedSinceLastUpdate: number = 0;
@@ -39,51 +36,66 @@ class MatrixChar{
 
 class MatrixCharRain{
 	startingPos: THREE.Vector3;
-	constructor(startingPos: THREE.Vector3){
+	bufferMatrixChar: BufferGeneric<MatrixChar>;
+	spawnNewMatrixCharSpeed: number = 200; // update speed in ms
+	timeElapsedSinceLastUpdate: number = 0;
+	sceneRef: THREE.Scene; 
+	constructor(scene: THREE.Scene, startingPos: THREE.Vector3, size: number){
 		this.startingPos = startingPos;
+		this.sceneRef = scene;
+		this.bufferMatrixChar = new BufferGeneric(size);
+		const matrixChar = new MatrixChar("", new THREE.Vector3(startingPos.x, startingPos.y, startingPos.z));
+		this.sceneRef.add(matrixChar.getMesh());
+		this.bufferMatrixChar.add(matrixChar);
 	}
 
-	update(time:number){
+	add(){
+		let vectorOfPrevMatrixCharInBuffer = this.bufferMatrixChar.buffer[this.bufferMatrixChar.buffer.length - 1].getMesh().position;
+		const matrixChar = new MatrixChar("", new THREE.Vector3(
+			vectorOfPrevMatrixCharInBuffer.x, vectorOfPrevMatrixCharInBuffer.y-1, vectorOfPrevMatrixCharInBuffer.z
+		));
+		this.sceneRef.add(matrixChar.getMesh());
+		const matrixCharToRemove = this.bufferMatrixChar.add(matrixChar);
+		if(matrixCharToRemove)
+			this.sceneRef.remove(matrixCharToRemove.getMesh());
+	}
 
+	update(time: number){
+		if((time - this.timeElapsedSinceLastUpdate >= this.spawnNewMatrixCharSpeed)){
+			console.log("add");
+			this.add();
+			this.updateTimeElapsedSinceLastUpdate(time);
+		}
+		this.bufferMatrixChar.buffer.forEach((matrixChar: MatrixChar) => matrixChar.update(time));
+	}
+
+	updateTimeElapsedSinceLastUpdate(time: number){
+		this.timeElapsedSinceLastUpdate = time;
 	}
 }
 
 init();
 
-
+let camera, scene, renderer, codeRain;
+let geometry, material, mesh;
 
 function init() {
 
-	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
-	camera.position.z = 10;
+	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 50 );
+	camera.position.z = 49;
 
 	scene = new THREE.Scene();
 
-	// geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-	// material = new THREE.MeshNormalMaterial();
-
-	// mesh = new THREE.Mesh( geometry, material );
-	// 	scene.add( mesh );
-
-	plane = new MatrixChar("0", new THREE.Vector3(0,0,0));
-	
-	scene.add(plane.getMesh());
-
+	codeRain = new MatrixCharRain(scene, new THREE.Vector3(0,5,0), 10);
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setAnimationLoop( animation );
 	document.body.appendChild( renderer.domElement );
-
 }
 
-function animation( time ) {
-
-	
-	console.log(plane);
-	plane.update(time);
-	
+function animation( time ) {	
+	console.log(codeRain);
+	codeRain.update(time);
 	renderer.render( scene, camera );
-
-	
 }
 
