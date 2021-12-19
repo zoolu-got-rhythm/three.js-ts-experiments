@@ -82,7 +82,7 @@ let geometry, material, mesh;
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 50 );
-	camera.position.z = 49;
+	camera.position.z = 20;
 
 	scene = new THREE.Scene();
 
@@ -94,7 +94,9 @@ function init() {
 }
 
 function animation( time ) {	
-	console.log(codeRain);
+	console.log(time);
+	// console.log(delta);
+	// console.log(codeRain);
 	codeRain.update(time);
 	renderer.render( scene, camera );
 }
