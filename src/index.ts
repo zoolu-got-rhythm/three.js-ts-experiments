@@ -52,9 +52,9 @@ function tick( ) {
 	// camera.position.y = Math.cos(time);
 	meshes.forEach((mesh, i) => {
 		const pos = ((Math.PI * 2) / n) * i;
-		mesh.position.x = Math.sin(pos + time * 0.5) * 2;	
+		mesh.position.x = Math.sin(pos + time * 0.5) * 1.5;	
 		mesh.position.z = Math.cos(pos + time * 0.5) * 2;
-		// mesh.material.opacity = Math.cos(pos + time * 0.5);
+		// mesh.material.opacity = Math.cos(pos + time * 0.5) + 0.75;
 		// console.log(mesh);
 	});
 	
