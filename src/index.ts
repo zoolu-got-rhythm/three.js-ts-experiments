@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { Color, Plane } from 'three';
 import { BufferGeneric } from './BufferGeneric';
 import { gsap } from 'gsap';
+import { OrbitingTeamMember } from './OrbitingTeamMember';
+import { RandomWalkerNorthEastSouthWestXY } from './RandomWalker';
 
 
 
@@ -12,24 +14,22 @@ let time;
 
 const meshes: any[] = [];
 const n = 5; 
+let orbitingTeamMembers: OrbitingTeamMember[] = [];
 
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 50 );
-	camera.position.z = 3;
+	camera.position.z = 0;
 
 	scene = new THREE.Scene();
 
-	for(let i = 0; i < 5; i++){
-		const geometry = new THREE.SphereGeometry(0.5,10,10);
-		const material = new THREE.MeshNormalMaterial();
-		material.transparent = true;
-		const mesh = new THREE.Mesh(geometry, material);
-		meshes.push(mesh);
+	for(let i = 0; i < n; i++){
+		const startingPosRadians = ((Math.PI * 2) / n) * i;
+		const orbitingTeamMember = new OrbitingTeamMember(scene, startingPosRadians);
+		orbitingTeamMember.setRandomizer(new RandomWalkerNorthEastSouthWestXY(0.01, 0.4));
+		orbitingTeamMembers.push(orbitingTeamMember);
 	}
 	
-	meshes.forEach((mesh) => scene.add(mesh));
-
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
@@ -50,14 +50,10 @@ function tick( ) {
 
 	// camera.position.x = Math.sin(time);
 	// camera.position.y = Math.cos(time);
-	meshes.forEach((mesh, i) => {
-		const pos = ((Math.PI * 2) / n) * i;
-		mesh.position.x = Math.sin(pos + time * 0.5) * 1.5;	
-		mesh.position.z = Math.cos(pos + time * 0.5) * 2;
-		// mesh.material.opacity = Math.cos(pos + time * 0.5) + 0.75;
-		// console.log(mesh);
-	});
 	
+	orbitingTeamMembers.forEach((orbitingTeamMember: OrbitingTeamMember) => {
+		orbitingTeamMember.update(time);
+	});
 
 	// camera.lookAt(mesh.position);
 
