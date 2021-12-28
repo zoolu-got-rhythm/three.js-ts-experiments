@@ -26,7 +26,7 @@ export class OrbitingTeamMember implements Object3d{
             this.directionRandomizer.update(time);
     }
 
-    setRandomizer(directionRandomizer: DirectionRandomizer){
+    setDirectionRandomizer(directionRandomizer: DirectionRandomizer){
         this.directionRandomizer = directionRandomizer;
     }
 }

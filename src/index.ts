@@ -3,7 +3,8 @@ import { Color, Plane } from 'three';
 import { BufferGeneric } from './BufferGeneric';
 import { gsap } from 'gsap';
 import { OrbitingTeamMember } from './OrbitingTeamMember';
-import { RandomWalkerNorthEastSouthWestXY } from './RandomWalker';
+import { RandomWalker4DirectionsXY } from './RandomWalker4directionsXY';
+import { RandomWalker8DirectionsXY } from './RandomWalker8directionsXY';
 
 
 
@@ -13,7 +14,7 @@ const clock = new THREE.Clock(true);
 let time;
 
 const meshes: any[] = [];
-const n = 5; 
+const n = 5;
 let orbitingTeamMembers: OrbitingTeamMember[] = [];
 
 function init() {
@@ -26,7 +27,7 @@ function init() {
 	for(let i = 0; i < n; i++){
 		const startingPosRadians = ((Math.PI * 2) / n) * i;
 		const orbitingTeamMember = new OrbitingTeamMember(scene, startingPosRadians);
-		orbitingTeamMember.setRandomizer(new RandomWalkerNorthEastSouthWestXY(0.01, 0.4));
+		orbitingTeamMember.setDirectionRandomizer(new RandomWalker8DirectionsXY(0.02, 0.5));
 		orbitingTeamMembers.push(orbitingTeamMember);
 	}
 	
