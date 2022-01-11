@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 import { OrbitingTeamMember } from './OrbitingTeamMember';
 import { RandomWalker4DirectionsXY } from './RandomWalker4directionsXY';
 import { RandomWalker8DirectionsXY } from './RandomWalker8directionsXY';
+import { noise1d } from './cosineInterpolation';
+import { SmoothRandomWalker } from './SmoothRandomWalkerXY';
 
 
 
@@ -17,17 +19,20 @@ const meshes: any[] = [];
 const n = 5;
 let orbitingTeamMembers: OrbitingTeamMember[] = [];
 
+let cameraZPos = -0.5;
+
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 50 );
-	camera.position.z = 0;
+	camera.position.z = cameraZPos;
+	// camera.position.y = 0.5;
 
 	scene = new THREE.Scene();
 
 	for(let i = 0; i < n; i++){
 		const startingPosRadians = ((Math.PI * 2) / n) * i;
-		const orbitingTeamMember = new OrbitingTeamMember(scene, startingPosRadians);
-		orbitingTeamMember.setDirectionRandomizer(new RandomWalker8DirectionsXY(0.02, 0.5));
+		const orbitingTeamMember = new OrbitingTeamMember(scene, startingPosRadians, `public/member_${i + 1}.png`);
+		orbitingTeamMember.setDirectionRandomizer(new SmoothRandomWalker());
 		orbitingTeamMembers.push(orbitingTeamMember);
 	}
 	
@@ -61,11 +66,40 @@ function tick( ) {
 	// camera.fo
 
 	// console.log(delta);
+	// camera.position.z = cameraZPos;
+
+	// cameraZPos += 0.01 % 6;
 
 	renderer.render( scene, camera );
 	window.requestAnimationFrame(tick);
 }
 
 init();
+
+// console.log(noise1d(5));
+// console.log(noise1d(195));
+
+// var c = document.getElementById("graph-plot");
+// // @ts-ignore
+// var ctx = c.getContext("2d");
+
+// let t = 0;
+
+//  // @ts-ignore
+
+
+//  let anim = () => {
+// 	ctx.clearRect(0,0,1000,1000);
+// 	ctx.beginPath();
+// 	ctx.arc(100 + noise1d(t) * 45, 100 + noise1d(t + 55) * 45, 10, 0, 2 * Math.PI);
+// 	ctx.stroke();
+// 	t+= 0.4;
+// 	window.requestAnimationFrame(anim)
+//  }
+
+//  anim();
+	
+
+
 
 

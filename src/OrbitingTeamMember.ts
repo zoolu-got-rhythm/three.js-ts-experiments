@@ -7,11 +7,13 @@ export class OrbitingTeamMember implements Object3d{
     startingPosOnCircleRadians: number;
     directionRandomizer: null | DirectionRandomizer = null;
 
-    constructor(scene: THREE.Scene, startingPosOnCircleRadians){
+    constructor(scene: THREE.Scene, startingPosOnCircleRadians: number, imagePathTeamMember: string){
         this.startingPosOnCircleRadians = startingPosOnCircleRadians;
-        const geometry = new THREE.SphereGeometry(0.5,10,10);
-		const material = new THREE.MeshNormalMaterial();
-		material.transparent = true;
+        const geometry = new THREE.PlaneGeometry(1,1,1,1);
+        const texture = new THREE.TextureLoader().load( imagePathTeamMember );
+		const material = new THREE.MeshBasicMaterial({map: texture});   
+
+		// material.transparent = true;
 		this.mesh = new THREE.Mesh(geometry, material);
         scene.add(this.mesh);
     }
