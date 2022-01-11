@@ -74,30 +74,30 @@ function tick( ) {
 	window.requestAnimationFrame(tick);
 }
 
-init();
+// init();
 
 // console.log(noise1d(5));
 // console.log(noise1d(195));
 
-// var c = document.getElementById("graph-plot");
-// // @ts-ignore
-// var ctx = c.getContext("2d");
+var c = document.getElementById("graph-plot");
+// @ts-ignore
+var ctx = c.getContext("2d");
 
-// let t = 0;
+let t = 0;
 
-//  // @ts-ignore
+ // @ts-ignore
 
 
-//  let anim = () => {
-// 	ctx.clearRect(0,0,1000,1000);
-// 	ctx.beginPath();
-// 	ctx.arc(100 + noise1d(t) * 45, 100 + noise1d(t + 55) * 45, 10, 0, 2 * Math.PI);
-// 	ctx.stroke();
-// 	t+= 0.4;
-// 	window.requestAnimationFrame(anim)
-//  }
+ let anim = () => {
+	// ctx.clearRect(0,0,1000,1000);
+	ctx.beginPath();
+	ctx.arc(t, 100 + noise1d(t) * 45, 1, 0, 2 * Math.PI);
+	ctx.stroke();
+	t+= 0.5;
+	window.requestAnimationFrame(anim)
+ }
 
-//  anim();
+ anim();
 	
 
 

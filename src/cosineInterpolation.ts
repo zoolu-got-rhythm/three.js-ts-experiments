@@ -5,10 +5,10 @@ export function cosineInterpolate(y1: number, y2: number, mu: number){
     return(y1*(1-mu2)+y2*mu2);
 }
 
-function linearInterpolate(y1, y2, mu)
- {
-    return(y1*(1-mu)+y2*mu);
- }
+// function linearInterpolate(y1, y2, mu)
+//  {
+//     return(y1*(1-mu)+y2*mu);
+//  }
 
 export function generateRandomPointsAtNIntervals(distanceBetweenPoints: number, nOfPoints: number){
     let points: Coords2d[] = [new Coords2d(0,0)];
@@ -27,12 +27,7 @@ export function noise1d(val: number){
     let indexOfPointToInterpolateFrom = Math.floor(val / xDistanceBetweenPoints);
     let indexOfPointToInterpolateTo = (indexOfPointToInterpolateFrom + 1) % nOfPoints;
 
-    console.log("info");
-    console.log(val);
-    console.log(indexOfPointToInterpolateFrom);
-    console.log(indexOfPointToInterpolateTo);
-
-
+    // memoize pattern: remember generatied points upon subsequent function calls for current program run
     // @ts-ignore
     if(!noise1d.pseudoRandPoints){
         // @ts-ignore
@@ -42,12 +37,9 @@ export function noise1d(val: number){
     let points: Coords2d[] = noise1d.pseudoRandPoints;
 
     const pointToInterpFrom = points[indexOfPointToInterpolateFrom];
-    const pointToInterpTo = points[indexOfPointToInterpolateTo];
-
-    console.log(pointToInterpFrom);
+    const pointToInterpTo = points[indexOfPointToInterpolateTo % nOfPoints];
 
     const fraction = 1 - ((pointToInterpTo.x - val) / xDistanceBetweenPoints);
-    console.log(fraction);
 
     return cosineInterpolate(pointToInterpFrom.y, pointToInterpTo.y, fraction);
 }
