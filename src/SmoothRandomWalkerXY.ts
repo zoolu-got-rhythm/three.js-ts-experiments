@@ -1,5 +1,5 @@
 import { Vector3 } from "three";
-import { noise1d } from "./cosineInterpolation";
+import { noise1d } from "./noise1d";
 import { DirectionRandomizer } from "./interfaces/DirectionRandomizer";
 
 export class SmoothRandomWalker implements DirectionRandomizer{

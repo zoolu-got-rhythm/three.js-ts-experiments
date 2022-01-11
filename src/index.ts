@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { OrbitingTeamMember } from './OrbitingTeamMember';
 import { RandomWalker4DirectionsXY } from './RandomWalker4directionsXY';
 import { RandomWalker8DirectionsXY } from './RandomWalker8directionsXY';
-import { noise1d } from './cosineInterpolation';
+import { noise1d } from './noise1d';
 import { SmoothRandomWalker } from './SmoothRandomWalkerXY';
 
 
