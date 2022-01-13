@@ -9,7 +9,8 @@ export class OrbitingTeamMember implements Object3d{
 
     constructor(scene: THREE.Scene, startingPosOnCircleRadians: number, imagePathTeamMember: string){
         this.startingPosOnCircleRadians = startingPosOnCircleRadians;
-        const geometry = new THREE.PlaneGeometry(1,1,1,1);
+        // const geometry = new THREE.PlaneGeometry(1,1,1,1);
+        const geometry = new THREE.CircleGeometry( 1, 64 );
         const texture = new THREE.TextureLoader().load( imagePathTeamMember );
 		const material = new THREE.MeshBasicMaterial({map: texture});   
 
@@ -20,8 +21,8 @@ export class OrbitingTeamMember implements Object3d{
 
     update(time: number): void{
         const randomDirectionVector = this.directionRandomizer ? this.directionRandomizer.getCurrentDirection() : null;
-        this.mesh.position.x = Math.sin(this.startingPosOnCircleRadians + time * 0.5) * 1.5 + (randomDirectionVector ? randomDirectionVector.x : 0);	
-		this.mesh.position.z = Math.cos(this.startingPosOnCircleRadians + time * 0.5) * 2 + (randomDirectionVector ? randomDirectionVector.z : 0);
+        this.mesh.position.x = Math.sin(this.startingPosOnCircleRadians + time * 0.5) * 3 + (randomDirectionVector ? randomDirectionVector.x : 0);	
+		this.mesh.position.z = Math.cos(this.startingPosOnCircleRadians + time * 0.5) * 2.5 + (randomDirectionVector ? randomDirectionVector.z : 0);
         this.mesh.position.y = randomDirectionVector ? randomDirectionVector.y : 0;
 
         if(this.directionRandomizer)

@@ -19,7 +19,10 @@ const meshes: any[] = [];
 const n = 5;
 let orbitingTeamMembers: OrbitingTeamMember[] = [];
 
-let cameraZPos = -0.5;
+let cameraZPos = 5;
+
+let rotationSpeed = 0.2;
+let i = 0;
 
 function init() {
 
@@ -58,8 +61,12 @@ function tick( ) {
 	// camera.position.y = Math.cos(time);
 	
 	orbitingTeamMembers.forEach((orbitingTeamMember: OrbitingTeamMember) => {
-		orbitingTeamMember.update(time);
+		orbitingTeamMember.update(i);
 	});
+
+	i += rotationSpeed;
+	if(rotationSpeed > 0.025)
+		rotationSpeed -= 0.002;
 
 	// camera.lookAt(mesh.position);
 
@@ -74,30 +81,30 @@ function tick( ) {
 	window.requestAnimationFrame(tick);
 }
 
-// init();
+init();
 
 // console.log(noise1d(5));
 // console.log(noise1d(195));
 
-var c = document.getElementById("graph-plot");
-// @ts-ignore
-var ctx = c.getContext("2d");
+// var c = document.getElementById("graph-plot");
+// // @ts-ignore
+// var ctx = c.getContext("2d");
 
-let t = 0;
+// let t = 0;
 
- // @ts-ignore
+//  // @ts-ignore
 
 
- let anim = () => {
-	// ctx.clearRect(0,0,1000,1000);
-	ctx.beginPath();
-	ctx.arc(t, 100 + noise1d(t) * 45, 1, 0, 2 * Math.PI);
-	ctx.stroke();
-	t+= 0.5;
-	window.requestAnimationFrame(anim)
- }
+//  let anim = () => {
+// 	// ctx.clearRect(0,0,1000,1000);
+// 	ctx.beginPath();
+// 	ctx.arc(t, 100 + noise1d(t) * 45, 1, 0, 2 * Math.PI);
+// 	ctx.stroke();
+// 	t+= 0.5;
+// 	window.requestAnimationFrame(anim)
+//  }
 
- anim();
+//  anim();
 	
 
 
