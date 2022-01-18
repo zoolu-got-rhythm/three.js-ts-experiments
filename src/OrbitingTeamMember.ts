@@ -21,7 +21,7 @@ export class OrbitingTeamMember implements Object3d{
 
     update(time: number): void{
         const randomDirectionVector = this.directionRandomizer ? this.directionRandomizer.getCurrentDirection() : null;
-        this.mesh.position.x = Math.sin(this.startingPosOnCircleRadians + time * 0.5) * 3 + (randomDirectionVector ? randomDirectionVector.x : 0);	
+        this.mesh.position.x = Math.sin(this.startingPosOnCircleRadians + time * 0.5) * 3.5 + (randomDirectionVector ? randomDirectionVector.x : 0);	
 		this.mesh.position.z = Math.cos(this.startingPosOnCircleRadians + time * 0.5) * 2.5 + (randomDirectionVector ? randomDirectionVector.z : 0);
         this.mesh.position.y = randomDirectionVector ? randomDirectionVector.y : 0;
 

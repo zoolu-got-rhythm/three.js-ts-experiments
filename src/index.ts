@@ -21,7 +21,7 @@ let orbitingTeamMembers: OrbitingTeamMember[] = [];
 
 let cameraZPos = 5;
 
-let rotationSpeed = 0.2;
+let rotationSpeed = 0.3;
 let i = 0;
 
 function init() {
