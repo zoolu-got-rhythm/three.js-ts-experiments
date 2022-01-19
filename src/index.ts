@@ -2,6 +2,17 @@ import * as THREE from 'three';
 import { Plane } from 'three';
 import { BufferGeneric } from './BufferGeneric';
 
+
+const japaneseKatakanaHalfWidthChars = ['･', 'ｦ', 'ｧ', 'ｨ', 'ｩ', 'ｪ', 'ｫ', 'ｬ', 'ｭ', 'ｮ', 'ｯ', 'ｰ', 'ｱ', 
+	'ｲ', 'ｳ', 'ｴ', 'ｵ', 'ｶ', 'ｷ', 'ｸ', 'ｹ', 'ｺ', 'ｻ', 'ｼ', 'ｽ', 'ｾ', 'ｿ', 'ﾀ', 'ﾁ', 'ﾂ', 'ﾃ', 'ﾄ', 'ﾅ', 
+	'ﾆ', 'ﾇ', 'ﾈ', 'ﾉ', 'ﾊ', 'ﾋ', 'ﾌ', 'ﾍ', 'ﾎ', 'ﾏ', 'ﾐ', 'ﾑ', 'ﾒ', 'ﾓ', 'ﾔ', 'ﾕ', 'ﾖ', 'ﾗ', 'ﾘ', 'ﾙ', 
+	'ﾚ', 'ﾛ', 'ﾜ', 'ﾝ', 'ﾞ']; // can maybe cull duplicate characters here later
+
+const specialCharacters = [">", "<", "#", "*", "^"];
+
+const digitCharacters: string[] = "0123456789".split(",");
+
+
 class MatrixChar{
 	updateSpeed: number = 100; // update speed in ms
 	timeElapsedSinceLastUpdate: number = 0;
